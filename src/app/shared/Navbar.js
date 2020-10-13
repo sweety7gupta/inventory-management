@@ -32,31 +32,7 @@ class Navbar extends Component {
             </form>
           </div>
           <ul className="navbar-nav navbar-nav-right">
-            <li className="nav-item nav-profile">
-              <Dropdown alignRight>
-                <Dropdown.Toggle className="nav-link">
-                  <div className="nav-profile-img">
-                    <img src={require("../../assets/images/faces/face1.jpg")} alt="user"/>
-                    <span className="availability-status online"></span>
-                  </div>
-                  <div className="nav-profile-text">
-                    <p className="mb-1 text-black"><Trans>David Greymaax</Trans></p>
-                  </div>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu className="navbar-dropdown">
-                  <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()}>
-                    <i className="mdi mdi-cached mr-2 text-success"></i>
-                    <Trans>Activity Log</Trans>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()}>
-                    <i className="mdi mdi-logout mr-2 text-primary"></i>
-                    <Trans>Signout</Trans>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </li>
-            <li className="nav-item">
+           <li className="nav-item">
               <Dropdown alignRight>
                 <Dropdown.Toggle className="nav-link count-indicator">
                   <i className="mdi mdi-email-outline"></i>
@@ -165,11 +141,6 @@ class Navbar extends Component {
               <a className="nav-link" href="!#" onClick={event => event.preventDefault()}>
                 <i className="mdi mdi-power"></i>
               </a>
-            </li>
-            <li className="nav-item nav-settings d-none d-lg-block">
-              <button type="button" className="nav-link border-0" onClick={this.toggleRightSidebar} >
-                <i className="mdi mdi-format-line-spacing"></i>
-              </button>
             </li>
           </ul>
           <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" onClick={this.toggleOffcanvas}>

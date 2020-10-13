@@ -35,16 +35,17 @@ class Sidebar extends Component {
     const dropdownPaths = [
       {path:'/apps', state: 'appsMenuOpen'},
       {path:'/basic-ui', state: 'basicUiMenuOpen'},
-      {path:'/advanced-ui', state: 'advancedUiMenuOpen'},
-      {path:'/form-elements', state: 'formElementsMenuOpen'},
-      {path:'/tables', state: 'tablesMenuOpen'},
-      {path:'/maps', state: 'mapsMenuOpen'},
-      {path:'/icons', state: 'iconsMenuOpen'},
-      {path:'/charts', state: 'chartsMenuOpen'},
-      {path:'/user-pages', state: 'userPagesMenuOpen'},
-      {path:'/error-pages', state: 'errorPagesMenuOpen'},
-      {path:'/general-pages', state: 'generalPagesMenuOpen'},
-      {path:'/ecommerce', state: 'ecommercePagesMenuOpen'},
+      {path:'/inventory-ui', state: 'inventoryMenuOpen'},
+      // {path:'/advanced-ui', state: 'advancedUiMenuOpen'},
+      // {path:'/form-elements', state: 'formElementsMenuOpen'},
+      // {path:'/tables', state: 'tablesMenuOpen'},
+      // {path:'/maps', state: 'mapsMenuOpen'},
+      // {path:'/icons', state: 'iconsMenuOpen'},
+      // {path:'/charts', state: 'chartsMenuOpen'},
+      // {path:'/user-pages', state: 'userPagesMenuOpen'},
+      // {path:'/error-pages', state: 'errorPagesMenuOpen'},
+      // {path:'/general-pages', state: 'generalPagesMenuOpen'},
+      // {path:'/ecommerce', state: 'ecommercePagesMenuOpen'},
     ];
 
     dropdownPaths.forEach((obj => {
@@ -78,7 +79,22 @@ class Sidebar extends Component {
               <i className="mdi mdi-home menu-icon"></i>
             </Link>
           </li>
-          <li className={ this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item' }>
+
+          <li className={ this.isPathActive('/inventory-ui') ? 'nav-item active' : 'nav-item' }>
+            <div className={ this.state.inventoryMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('inventoryMenuOpen') } data-toggle="collapse">
+              <span className="menu-title"><Trans>Inventrory</Trans></span>
+              <i className="menu-arrow"></i>
+              <i className="mdi mdi-database-plus menu-icon"></i>
+            </div>
+            <Collapse in={ this.state.inventoryMenuOpen }>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item"> <Link className={ this.isPathActive('/inventory-ui/inventoryEntry') ? 'nav-link active' : 'nav-link' } to="/inventory-ui/inventoryEntry">
+                  <Trans>Inventory Entry</Trans></Link></li>
+              </ul>
+            </Collapse>
+          </li>
+          
+          {/* <li className={ this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
               <span className="menu-title"><Trans>Basic UI Elements</Trans></span>
               <i className="menu-arrow"></i>
@@ -92,7 +108,8 @@ class Sidebar extends Component {
               </ul>
             </Collapse>
           </li>
-          <li className={ this.isPathActive('/form-elements') ? 'nav-item active' : 'nav-item' }>
+           */}
+           <li className={ this.isPathActive('/form-elements') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.formElementsMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('formElementsMenuOpen') } data-toggle="collapse">
               <span className="menu-title"><Trans>Form Elements</Trans></span>
               <i className="menu-arrow"></i>
@@ -104,7 +121,7 @@ class Sidebar extends Component {
               </ul>
             </Collapse>
           </li>
-          <li className={ this.isPathActive('/tables') ? 'nav-item active' : 'nav-item' }>
+          {/* <li className={ this.isPathActive('/tables') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.tablesMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('tablesMenuOpen') } data-toggle="collapse">
               <span className="menu-title"><Trans>Tables</Trans></span>
               <i className="menu-arrow"></i>
@@ -184,7 +201,8 @@ class Sidebar extends Component {
               <span className="menu-title"><Trans>Documentation</Trans></span>
               <i className="mdi mdi-file-document-box menu-icon"></i>
             </a>
-          </li>
+          </li> */}
+         
         </ul>
       </nav>
     );

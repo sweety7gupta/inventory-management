@@ -5,7 +5,8 @@
   .card-body {
     padding: $card-padding-y $card-padding-x;
     @media(max-width: 767px) {
-      padding: 2rem 2rem;
+      //padding: 2rem 2rem;
+      padding: 0.5rem 0.5rem;
     }
     + .card-body {
       padding-top: 1rem;

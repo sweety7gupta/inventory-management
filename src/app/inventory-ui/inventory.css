@@ -1,0 +1,7 @@
+.text-field-container {
+    display: flex;
+}
+
+.text-field {
+    flex: 1;
+}
