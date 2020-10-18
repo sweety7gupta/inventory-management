@@ -14,6 +14,8 @@ class InventoryEntry extends Component {
         mrpPrice:"",
         sellingPrice: "",
         noOfPack: "",
+        mfgDate:"",
+        expDate:"",
 
         validations: {},
     }
@@ -56,6 +58,7 @@ class InventoryEntry extends Component {
             productName: this.state.productName,
             productDtls: this.state.productDtls,
             mfgDate: this.state.mfgDate,
+            expDate: this.state.expDate,
             purchasePrice: this.state.purchasePrice,
             mrpPrice: this.state.mrpPrice,
             sellingPrice: this.state.sellingPrice,
@@ -120,6 +123,8 @@ class InventoryEntry extends Component {
                                     variant="outlined"
                                     type="date"
                                     defaultValue={new Date()}
+                                    value={this.state.mfgDate}
+                                    onChange={(event) => this.handleAllChange({ mfgDate: event.target.value })}
                                     InputLabelProps={{
                                     shrink: true,
                                     }}
@@ -133,6 +138,9 @@ class InventoryEntry extends Component {
                                     variant="outlined"
                                     type="date"
                                     defaultValue={new Date()}
+                                    value={this.state.expDate}
+                                    onChange={(event) => this.handleAllChange({ expDate: event.target.value })}
+                                   
                                     InputLabelProps={{
                                     shrink: true,
                                     }}

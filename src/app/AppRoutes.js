@@ -5,6 +5,8 @@ import Spinner from '../app/shared/Spinner';
 
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
+const Purchase = lazy(() => import('./dashboard/Purchase'));
+
 const InventoryEntry = lazy(() => import('./inventory-ui/InventoryEntry'));
 
 const Buttons = lazy(() => import('./basic-ui/Buttons'));
@@ -42,6 +44,7 @@ class AppRoutes extends Component {
         <Switch>
           <Route exact path="/dashboard" component={ Dashboard } />
 
+          <Route exact path="/purchase" component={ Purchase } />
           <Route path="/inventory-ui/inventoryEntry" component={ InventoryEntry } />
 
           <Route path="/basic-ui/buttons" component={ Buttons } />

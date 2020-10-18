@@ -89,7 +89,11 @@ class Sidebar extends Component {
             <Collapse in={ this.state.inventoryMenuOpen }>
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item"> <Link className={ this.isPathActive('/inventory-ui/inventoryEntry') ? 'nav-link active' : 'nav-link' } to="/inventory-ui/inventoryEntry">
-                  <Trans>Inventory Entry</Trans></Link></li>
+                  <Trans>Inventory Entry</Trans></Link>
+                </li>
+                <li className="nav-item"> <Link className={ this.isPathActive('/purchase') ? 'nav-link active' : 'nav-link' } to="/purchase">
+                  <Trans>Barcode</Trans></Link>
+                </li>
               </ul>
             </Collapse>
           </li>

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 //import { ProgressBar } from 'react-bootstrap';
 //import {Bar, Doughnut} from 'react-chartjs-2';
-import {Bar} from 'react-chartjs-2';
+//import {Bar} from 'react-chartjs-2';
 import DatePicker from "react-datepicker";
 //import {Purchase} from './Purchase';
 // import "react-datepicker/dist/react-datepicker.css";
 
-const TOTAL_BILLS_GENERATED = 150;
+//const TOTAL_BILLS_GENERATED = 150;
 
 export class Dashboard extends Component {
   handleChange = date => {
@@ -324,7 +324,7 @@ export class Dashboard extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-7 grid-margin stretch-card">
+          <div className="col-lg-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body p-0 d-flex">
                 <div className="dashboard-custom-date-picker">
