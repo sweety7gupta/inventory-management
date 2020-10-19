@@ -1,7 +1,23 @@
 .text-field-container {
     display: flex;
+    padding: 0.5rem 0.5rem;
 }
 
 .text-field {
     flex: 1;
 }
+
+.card-body-container {
+    padding: 0.5rem;
+}
+
+.search {
+    position: 'relative';
+  }
+
+  .searchIcon {
+    padding: 0.5rem;
+    height: '100%';
+    position: 'absolute';
+    display: 'flex';
+ }
