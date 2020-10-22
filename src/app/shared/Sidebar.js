@@ -36,7 +36,7 @@ class Sidebar extends Component {
       {path:'/apps', state: 'appsMenuOpen'},
       {path:'/basic-ui', state: 'basicUiMenuOpen'},
       {path:'/inventory-ui', state: 'inventoryMenuOpen'},
-      // {path:'/advanced-ui', state: 'advancedUiMenuOpen'},
+       {path:'/barcode-ui', state: 'barcodeUiMenuOpen'},
       // {path:'/form-elements', state: 'formElementsMenuOpen'},
       // {path:'/tables', state: 'tablesMenuOpen'},
       // {path:'/maps', state: 'mapsMenuOpen'},
@@ -98,21 +98,19 @@ class Sidebar extends Component {
             </Collapse>
           </li>
           
-          {/* <li className={ this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item' }>
-            <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
-              <span className="menu-title"><Trans>Basic UI Elements</Trans></span>
+          <li className={ this.isPathActive('/barcode-ui') ? 'nav-item active' : 'nav-item' }>
+            <div className={ this.state.barcodeUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('barcodeUiMenuOpen') } data-toggle="collapse">
+              <span className="menu-title"><Trans>Barcode</Trans></span>
               <i className="menu-arrow"></i>
-              <i className="mdi mdi-crosshairs-gps menu-icon"></i>
+              <i className="mdi mdi-barcode menu-icon"></i>
             </div>
-            <Collapse in={ this.state.basicUiMenuOpen }>
+            <Collapse in={ this.state.barcodeUiMenuOpen }>
               <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/buttons') ? 'nav-link active' : 'nav-link' } to="/basic-ui/buttons"><Trans>Buttons</Trans></Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/dropdowns') ? 'nav-link active' : 'nav-link' } to="/basic-ui/dropdowns"><Trans>Dropdowns</Trans></Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/typography') ? 'nav-link active' : 'nav-link' } to="/basic-ui/typography"><Trans>Typography</Trans></Link></li>
+                <li className="nav-item"> <Link className={ this.isPathActive('/barcode-ui/barcodePrinting') ? 'nav-link active' : 'nav-link' } to="/barcode-ui/barcodePrinting"><Trans>Barcode Printing</Trans></Link></li>
               </ul>
             </Collapse>
           </li>
-           */}
+          
            <li className={ this.isPathActive('/form-elements') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.formElementsMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('formElementsMenuOpen') } data-toggle="collapse">
               <span className="menu-title"><Trans>Form Elements</Trans></span>

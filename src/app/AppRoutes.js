@@ -9,6 +9,8 @@ const Purchase = lazy(() => import('./dashboard/Purchase'));
 
 const InventoryEntry = lazy(() => import('./inventory-ui/InventoryEntry'));
 
+const BarcodePrinting = lazy(() => import('./barcode-ui/BarcodePrinting'));
+
 const Buttons = lazy(() => import('./basic-ui/Buttons'));
 const Dropdowns = lazy(() => import('./basic-ui/Dropdowns'));
 const Typography = lazy(() => import('./basic-ui/Typography'));
@@ -46,6 +48,8 @@ class AppRoutes extends Component {
 
           <Route exact path="/purchase" component={ Purchase } />
           <Route path="/inventory-ui/inventoryEntry" component={ InventoryEntry } />
+
+          <Route path="/barcode-ui/barcodePrinting" component={ BarcodePrinting } />
 
           <Route path="/basic-ui/buttons" component={ Buttons } />
           <Route path="/basic-ui/dropdowns" component={ Dropdowns } />

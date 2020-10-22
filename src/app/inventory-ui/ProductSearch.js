@@ -4,10 +4,10 @@ import { TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import './inventory.css';
 
-class inventoryBarcodeSearch extends Component {
+class ProductSearch extends Component {
     state = {
         query: "",
-        data: ["kallu","lallu","motu","gandu" ],
+        data: ["kallu", "kalli" ,"lallu","motu","gandu" ],
         filteredData: [],
       };
 
@@ -15,12 +15,11 @@ class inventoryBarcodeSearch extends Component {
         const query = event.target.value;
     
         this.setState(prevState => {
-          const filteredData = prevState.data.filter(element => {
-            //return element.name.includes(query);
-            return query;
-
+          const filteredData = prevState.data.filter((element, index) => {
+            return element.startsWith(query);
           });
-    
+
+  
           return {
             query,
             filteredData
@@ -28,24 +27,24 @@ class inventoryBarcodeSearch extends Component {
         });
       };
     
-      getData = () => {
-        fetch(`http://localhost:3000/demo/purple-react-free/template/demo_1/preview/inventory-ui/inventoryEntry`)
-          .then(response => response.json())
-          .then(data => {
-            const { query } = this.state;
-            const filteredData = data.filter(element => {
-              return element.name.toLowerCase().includes(query.toLowerCase());
-            });
+      // getData = () => {
+      //   fetch(`http://localhost:3000/demo/purple-react-free/template/demo_1/preview/inventory-ui/inventoryEntry`)
+      //     .then(response => response.json())
+      //     .then(data => {
+      //       const { query } = this.state;
+      //       const filteredData = data.filter(element => {
+      //         return element.name.toLowerCase().includes(query.toLowerCase());
+      //       });
     
-            this.setState({
-              data,
-              filteredData
-            });
-          });
-      };
+      //       this.setState({
+      //         data,
+      //         filteredData
+      //       });
+      //     });
+      // };
     
       componentWillMount() {
-        this.getData();
+        // this.getData();
       } 
 
     render(){
@@ -66,7 +65,7 @@ class inventoryBarcodeSearch extends Component {
                         value={this.state.query}
                         onChange={this.handleInputChange}
                         />
-                        <div>{this.state.filteredData.map(i => <p>{i.name}</p>)}</div>
+                        <div>{this.state.filteredData.map(i => <p>{i}</p>)}</div>
                     </div>
 
 
@@ -75,4 +74,4 @@ class inventoryBarcodeSearch extends Component {
     }        
 }
 
-export default inventoryBarcodeSearch;
+export default ProductSearch;

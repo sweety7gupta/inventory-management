@@ -2,8 +2,6 @@ import React,{Component} from 'react';
 import { TextField, Button } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import './inventory.css';
-import { components } from 'react-select';
-import InventoryBarcodeSearch from './InventoryBarcodeSearch';
 
 class InventoryForm extends Component{
     state = {
@@ -18,7 +16,6 @@ class InventoryForm extends Component{
         noOfPack: "",
         mfgDate:"",
         expDate:"",
-        tabHeader: this.props.headerName,
         validations: {},
         barcodeVisible: 'none',
     }
@@ -77,14 +74,14 @@ class InventoryForm extends Component{
             
             <div>
                 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-8 grid-margin stretch-card">
-                        <div className="card card-body-container">
-                            <div className="card-body card-body-container">
+                        <div className="card card-body-container"> */}
+                            {/* <div className="card-body card-body-container">
                                 <h4 className="card-title">{this.state.tabHeader}</h4>
                                 <InventoryBarcodeSearch style={this.state.barcodeVisible ? {} : { display: 'none' }} ></InventoryBarcodeSearch>
                                 
-                            </div>
+                            </div> */}
                             <div className="card-body text-field-container">                        
                                 <TextField
                                     id="barcode-basic"
@@ -228,9 +225,9 @@ class InventoryForm extends Component{
                                 </Button>
                             </div>   
                 
-                        </div>  
+                        {/* </div>  
                     </div>  
-                </div>
+                </div> */}
             </div>
    
         )

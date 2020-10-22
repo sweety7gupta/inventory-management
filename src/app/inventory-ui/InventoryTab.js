@@ -1,7 +1,8 @@
 import React ,{ Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-
+import InventoryExistingBarcode from './InventoryExistingBarcode';
+import InventoryCustomBarcode from './InventoryCustomBarcode';
 
 class InventoryTab extends Component {
 
@@ -15,10 +16,11 @@ class InventoryTab extends Component {
                 </TabList>
             
                 <TabPanel>                        
-                    <InventoryForm headerName={" "}></InventoryForm>
+                    <InventoryExistingBarcode/>
                 </TabPanel>
                 <TabPanel>
-                    <InventoryForm headerName={"Custom Barcode"}></InventoryForm>
+                    <InventoryCustomBarcode/>
+                    {/* <InventoryForm headerName={"Custom Barcode"}></InventoryForm> */}
                 </TabPanel>
             </Tabs>
            
