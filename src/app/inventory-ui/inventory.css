@@ -12,12 +12,16 @@
 }
 
 .search {
-    position: 'relative';
+    /* position: 'relative'; */
+    display: flex;
   }
 
   .searchIcon {
     padding: 0.5rem;
     height: '100%';
     position: 'absolute';
-    display: 'flex';
+    /* display: 'flex'; */
+    flex:  1;
  }
+
+ 

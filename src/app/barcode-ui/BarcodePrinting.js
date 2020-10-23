@@ -16,7 +16,13 @@ class BarcodePrinting extends Component{
             <div className="App">
                 <h1>react-barcodes</h1>
                 {/* <svg ref={inputRef} /> */}
-                <Barcode value="01232346782364" displayValue={false} />
+                <Barcode value="01232346782364" />
+
+                {/* <div ref={wrapper_ref}>
+                    <BarCode value={value} displayValue={false}            />
+                </div>
+                 <button onClick={onClick}>Print Barcode</button> */}
+
             </div>
 
         )
