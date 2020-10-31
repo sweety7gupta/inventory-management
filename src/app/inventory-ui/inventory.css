@@ -11,6 +11,13 @@
     padding: 0.5rem;
 }
 
+.card-body-style {
+    border-radius: 0;
+}
+.card-tab-style {
+    padding: 16px;
+    cursor: pointer;
+}
 .search {
     /* position: 'relative'; */
     display: flex;
@@ -24,4 +31,19 @@
     flex:  1;
  }
 
+ .tab-container {
+     margin: 0 0 1px;
+     list-style-type: none;
+     padding-left: 8px;
+ }
+ 
+ .autocomplete-popup-indicator {
+     display: none;
+ }
+
+ .tab-heading{
+     padding-left: 20px;
+     padding-top: 10px;
+
+ }
  

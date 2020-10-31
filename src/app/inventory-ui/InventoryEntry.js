@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import './inventory.css';
+import './Inventory.css';
 import InventoryTab from './InventoryTab';
 
 

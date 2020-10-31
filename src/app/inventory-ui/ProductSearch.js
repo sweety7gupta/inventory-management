@@ -1,14 +1,9 @@
 import React,{ Component }from 'react';
-//import InputBase from '@material-ui/core/InputBase';
 import { TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 class ProductSearch extends Component {
-  // const top100Films = [
-  //   { title: 'The Shawshank Redemption', year: 1994 },
-  // ]
-   
   state = {
     productDetails : [
       { product : "Kaju" ,barcode: "0999900000000" },
@@ -17,38 +12,54 @@ class ProductSearch extends Component {
       { product : "Ice-Cream" ,barcode: "1234567890126" },
       { product : "Peanut" ,barcode: "1234567890127" },
     ],
+    tags: [],
     labelWithIcon : <span className="fas fa-mdi mdi-barcode" />
     
   }
+  onTagsChange = (event, value) => {
+    if (value){
+       this.props.onProductSelect(value.barcode);
+    }
+    else
+    {
+      this.props.onProductSelect();
+    }
+  }
+
   render (){
     return (
       <div >
-        <div className="card-body text-field-container input_container"  >   
-
-             <SearchIcon
-              fontSize="inherit"
-              style={{ fontSize: "30px" }}
-              
-            /> 
-          
+        <div className="card-body text-field-container input_container"  >    
+          {/* <div style={{ position: 'relative' }}> */}
             <Autocomplete
               id="productSarchCombo"
               options={this.state.productDetails}
               getOptionLabel={(option) => option.product || option.barcode }
-              // style={{ width: 300 }}
+              getOptionSelected={(option) => option.barcode }
+              onChange={this.onTagsChange}
               renderInput={(params) => 
-              <TextField {...params} label="Search" variant="outlined"  />
-            }
+                <TextField 
+                  {...params}
+                  label="Search"
+                  variant="outlined"
+                 // InputProps={{ ...params.InputProps, type: 'search' }}
+                  
+                />
+              }
+              style={{  }}
               size= "small"
               className="text-field search"
-              
-              //icon={(params)=><SearchIcon {...params} />}
-              
-              // defaultValue={{ label: this.state.labelWithIcon, value: 'some-value' }} 
             />
+
+            {/* <SearchIcon
+              fontSize="inherit"
+              style={{ position: 'absolute', top: '10px', left: '330px' }}    
+              //className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"          
+            /> */}
+          {/* </div> */}
         </div>
-      </div>
-     
+      </div>     
+
     )
   }
            

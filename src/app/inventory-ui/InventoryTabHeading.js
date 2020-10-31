@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import './Inventory.css';
 
 class InventoryTabHeading extends Component {
     state = {
@@ -8,7 +9,7 @@ class InventoryTabHeading extends Component {
     render (){
         return (
             <div>
-                 <h4 className="card-title">{this.state.tabHeader}</h4>
+                 <h4 className="card-title tab-heading">{this.state.tabHeader}</h4>
             </div>
         )
     }

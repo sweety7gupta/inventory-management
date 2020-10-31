@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 //import {Bar} from 'react-chartjs-2';
 import DatePicker from "react-datepicker";
 //import {Purchase} from './Purchase';
-// import "react-datepicker/dist/react-datepicker.css";
+ import "./Dashboard.css";
 
 //const TOTAL_BILLS_GENERATED = 150;
 
@@ -323,7 +323,7 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row row-container">
           <div className="col-lg-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body p-0 d-flex">

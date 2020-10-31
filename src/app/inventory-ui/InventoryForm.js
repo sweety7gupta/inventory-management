@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { TextField, Button } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import './inventory.css';
+import './Inventory.css';
 
 class InventoryForm extends Component{
     state = {

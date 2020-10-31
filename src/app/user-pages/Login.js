@@ -1,8 +1,38 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
+import { TextField, Button } from '@material-ui/core';
+import { withRouter } from "react-router-dom";
 
-export class Login extends Component {
+import './Login.css';
+// import { Link } from 'react-router-dom';
+// import { Form } from 'react-bootstrap';
+
+ class Login extends Component {
+
+  state ={
+    username:"",
+    password:"",
+    active:true,
+
+ }
+
+
+ handleAllChange = (value) => {
+     this.setState(value);
+    // this.validate(value);
+ }
+
+ loginDetails = (event) => {
+     const requestObject = {
+         username: this.state.username,
+         password: this.state.password,
+     }
+     if(this.state.active===true){
+        this.props.history.replace("/dashboard")
+     }
+
+ }
+
+
   render() {
     return (
       <div>
@@ -11,11 +41,48 @@ export class Login extends Component {
             <div className="col-lg-4 mx-auto">
               <div className="auth-form-light text-left py-5 px-4 px-sm-5">
                 <div className="brand-logo">
-                  <img src={require("../../assets/images/logo.svg")} alt="logo" />
+                  {/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
+                  <img src={require("../../assets/images/logo.png")} alt="logo" />
                 </div>
                 <h4>Hello! let's get started</h4>
                 <h6 className="font-weight-light">Sign in to continue.</h6>
-                <Form className="pt-3">
+                <div className="row">
+                <div className="card-body text-field-container">  
+                    <TextField
+                        id="user-basic"
+                        label="Username"
+                        variant="outlined"
+                        value={this.state.Username}
+                        onChange={(event) => this.handleAllChange({ Username: event.target.value })}                                    
+                        className="text-field"
+                        size= "small"
+                        fullWidth="true"
+                    />
+                </div> 
+                <div className="card-body text-field-container">  
+                    <TextField
+                        id="password-basic"
+                        label="Password"
+                        variant="outlined"
+                        value={this.state.password}
+                        onChange={(event) => this.handleAllChange({ password: event.target.value })}                                    
+                        className="text-field"
+                        size= "small"
+                        type="password"
+                        fullWidth="true"
+                    />
+                </div> 
+                <div className="card-body text-field-container">
+                    <Button variant="contained" color="primary" onClick={this.loginDetails}>
+                        Login
+                    </Button>
+                </div>   
+                
+
+            </div>
+      
+
+                {/* <Form className="pt-3">
                   <Form.Group className="d-flex search-field">
                     <Form.Control type="email" placeholder="Username" size="lg" className="h-auto" />
                   </Form.Group>
@@ -44,6 +111,7 @@ export class Login extends Component {
                     Don't have an account? <Link to="/user-pages/register" className="text-primary">Create</Link>
                   </div>
                 </Form>
+               */}
               </div>
             </div>
           </div>
@@ -53,4 +121,4 @@ export class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(Login);
