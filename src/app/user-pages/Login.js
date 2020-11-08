@@ -57,48 +57,51 @@ import './Login.css';
                   {/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
                   <img src={require("../../assets/images/logo.png")} alt="logo" />
                 </div>
-                <h4>Hello! let's get started</h4>
-                <h6 className="font-weight-light">Sign in to continue.</h6>
-                <div className="row">
-                <div className="card-body text-field-container">  
-                    <TextField
-                        id="user-basic"
-                        label="Username"
-                        variant="outlined"
-                        value={this.state.username}
-                        onChange={(event) => this.handleAllChange({ username: event.target.value })}                                    
-                        className="text-field"
-                        size= "small"
-                        fullWidth="true"
-                    />
-                </div> 
-                <div className="card-body text-field-container">  
-                    <TextField
-                        id="password-basic"
-                        label="Password"
-                        variant="outlined"
-                        value={this.state.password}
-                        onChange={(event) => this.handleAllChange({ password: event.target.value })}                                    
-                        className="text-field"
-                        size= "small"
-                        type="password"
-                        fullWidth="true"
-                    />
-                </div> 
-                <div className="card-body text-field-container">
-                    <Button variant="contained" color="primary" onClick={this.loginDetails}>
-                        Login
-                    </Button>
-                </div>   
-                
+                  <h4>Hello! let's get started</h4>
+                  <h6 className="font-weight-light">Sign in to continue.</h6>
+                  <div className="row">
+                    <div className="card-body text-field-container">  
+                        <TextField
+                            id="user-basic"
+                            label="Username"
+                            variant="outlined"
+                            value={this.state.username}
+                            onChange={(event) => this.handleAllChange({ username: event.target.value })}                                    
+                            className="text-field"
+                            size= "small"
+                            fullWidth="true"
+                        />
+                    </div> 
+                  </div>
+                  <div className="row">
+                    <div className="card-body text-field-container">  
+                        <TextField
+                            id="password-basic"
+                            label="Password"
+                            variant="outlined"
+                            value={this.state.password}
+                            onChange={(event) => this.handleAllChange({ password: event.target.value })}                                    
+                            className="text-field"
+                            size= "small"
+                            type="password"
+                            fullWidth="true"
+                        />
+                    </div> 
+                  </div>
+                  <div className="row">
+                    <div className="card-body text-field-container">
+                        <Button variant="contained" color="primary" onClick={this.loginDetails}>
+                            Login
+                        </Button>
+                    </div>   
+                  </div>
 
-            </div>
+              </div>
       
               </div>
             </div>
           </div>
-        </div>  
-      </div>
+        </div> 
     )
   }
 }
