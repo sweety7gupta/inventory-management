@@ -3,11 +3,25 @@ import { Link, withRouter } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 
+class Username extends Component {
+  state = {
+    username: localStorage.getItem("username"),
+  };
+
+  render() {
+    return (
+      <span className="font-weight-bold mb-2">
+        {/* <Trans>{this.state.username}</Trans> */}
+        {this.state.username}
+      </span>
+    );
+  }
+}
+
 class Sidebar extends Component {
 
   state = {
-    
-    username: "Sweety",
+
   };
 
   toggleMenuState(menuState) {
@@ -17,7 +31,7 @@ class Sidebar extends Component {
       this.setState({[menuState] : true});
     } else {
       Object.keys(this.state).forEach(i => {
-        this.setState({[i]: false});
+        //this.setState({[i]: false});
       });
       this.setState({[menuState] : true});
     }
@@ -70,11 +84,7 @@ class Sidebar extends Component {
                 <span className="login-status online"></span> {/* change to offline or busy as needed */}
               </div>
               <div className="nav-profile-text">
-                <span className="font-weight-bold mb-2">
-    <Trans>{this.props.username}</Trans>
-                  {/* {this.state.username} */}
-                  </span>
-                <span className="text-secondary text-small"><Trans>Project Manager</Trans></span>
+                <Username />                
               </div>
               <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>

@@ -5,6 +5,9 @@ import InventoryForm from './InventoryForm';
 import  './Inventory.css'
 
 class InventoryExistingBarcode extends Component {
+    handleProductSelect = (barcode)=>{
+
+    }
     render(){
         return(
             <div className="row">
@@ -12,9 +15,9 @@ class InventoryExistingBarcode extends Component {
                     <div className="card card-body-container card-body-style">
                         <InventoryTabHeading headerName="Existing Barcode"/>                   
                     
-                        <ProductSearch />
+                        <ProductSearch onProductSelect={this.handleProductSelect} />
                     
-                        <InventoryForm/>
+                        <InventoryForm />
                     </div>
                 </div>
             </div>

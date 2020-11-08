@@ -8,7 +8,7 @@ class InventoryForm extends Component{
         value: "",
         barcode: "",
         productName: "",
-        productDtls: "",
+        productShortName: "",
         sellerName: "",
         purchasePrice: "",
         mrpPrice:"",
@@ -56,7 +56,7 @@ class InventoryForm extends Component{
         const requestObject = {
             barcode: this.state.barcode,
             productName: this.state.productName,
-            productDtls: this.state.productDtls,
+            productShortName: this.state.productShortName,
             mfgDate: this.state.mfgDate,
             expDate: this.state.expDate,
             purchasePrice: this.state.purchasePrice,
@@ -113,10 +113,10 @@ class InventoryForm extends Component{
                              <div className="card-body text-field-container">  
                                 <TextField
                                     id="productDetails-basic"
-                                    label="Product Details"
+                                    label="Product Short Name"
                                     variant="outlined"
-                                    value={this.state.productDtls}
-                                    onChange={(event) => this.handleAllChange({ productDtls: event.target.value })}
+                                    value={this.state.productShortName}
+                                    onChange={(event) => this.handleAllChange({ productShortName: event.target.value })}
                                     className="text-field"
                                     size= "small"
                                 />

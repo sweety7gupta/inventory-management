@@ -38,8 +38,16 @@ import './Login.css';
       password: this.state.password
     })
   }).then((response) => {
-    response.json((data) => {
-      console.log();
+    response.json().then((json) => {
+      if(json.code==="success")
+      {
+        localStorage.setItem("token", json.data.token);
+        localStorage.setItem("username", json.data.username);
+
+        window.location.href = '/dashboard';
+        // this.props.history.replace("/dashboard")
+      }
+      // console.log(json);
     });
   })
 
@@ -52,7 +60,7 @@ import './Login.css';
         <div className="d-flex align-items-center auth px-0">
           <div className="row w-100 mx-0">
             <div className="col-lg-4 mx-auto">
-              <div className="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div className="auth-form-light value-left py-5 px-4 px-sm-5">
                 <div className="brand-logo">
                   {/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
                   <img src={require("../../assets/images/logo.png")} alt="logo" />
@@ -60,28 +68,28 @@ import './Login.css';
                   <h4>Hello! let's get started</h4>
                   <h6 className="font-weight-light">Sign in to continue.</h6>
                   <div className="row">
-                    <div className="card-body text-field-container">  
+                    <div className="card-body value-field-container">  
                         <TextField
                             id="user-basic"
                             label="Username"
                             variant="outlined"
                             value={this.state.username}
                             onChange={(event) => this.handleAllChange({ username: event.target.value })}                                    
-                            className="text-field"
+                            className="value-field"
                             size= "small"
                             fullWidth="true"
                         />
                     </div> 
                   </div>
                   <div className="row">
-                    <div className="card-body text-field-container">  
+                    <div className="card-body value-field-container">  
                         <TextField
                             id="password-basic"
                             label="Password"
                             variant="outlined"
                             value={this.state.password}
                             onChange={(event) => this.handleAllChange({ password: event.target.value })}                                    
-                            className="text-field"
+                            className="value-field"
                             size= "small"
                             type="password"
                             fullWidth="true"
@@ -89,7 +97,7 @@ import './Login.css';
                     </div> 
                   </div>
                   <div className="row">
-                    <div className="card-body text-field-container">
+                    <div className="card-body value-field-container">
                         <Button variant="contained" color="primary" onClick={this.loginDetails}>
                             Login
                         </Button>

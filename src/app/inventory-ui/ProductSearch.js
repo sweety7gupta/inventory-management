@@ -1,21 +1,17 @@
 import React,{ Component }from 'react';
 import { TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import * as ApiHelper from '../ApiHelper';
 
 class ProductSearch extends Component {
   state = {
-    productDetails : [
-      { product : "Kaju" ,barcode: "0999900000000" },
-      { product : "Lays" ,barcode: "0111111111111" },
-      { product : "Kurkure" ,barcode: "1234567890125" },
-      { product : "Ice-Cream" ,barcode: "1234567890126" },
-      { product : "Peanut" ,barcode: "1234567890127" },
-    ],
+    products : [],
     tags: [],
     labelWithIcon : <span className="fas fa-mdi mdi-barcode" />
     
   }
+
   onTagsChange = (event, value) => {
     if (value){
        this.props.onProductSelect(value.barcode);
@@ -33,8 +29,8 @@ class ProductSearch extends Component {
           {/* <div style={{ position: 'relative' }}> */}
             <Autocomplete
               id="productSarchCombo"
-              options={this.state.productDetails}
-              getOptionLabel={(option) => option.product || option.barcode }
+              options={this.state.products}
+              getOptionLabel={(option) => option.productName || option.barcode }
               getOptionSelected={(option) => option.barcode }
               onChange={this.onTagsChange}
               renderInput={(params) => 
