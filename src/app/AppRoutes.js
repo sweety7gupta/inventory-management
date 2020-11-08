@@ -78,9 +78,9 @@ class AppRoutes extends Component {
           <Route path="/charts/chart-js" component={ ChartJs } />
 
 
-          <Route path="/user-pages/login-1" component={ Login } />
-          <Route path="/user-pages/register-1" component={ Register1 } />
-          <Route path="/user-pages/lockscreen" component={ Lockscreen } />
+          <Route path="/login" component={ Login } />
+          {/* <Route path="/user-pages/register-1" component={ Register1 } /> */}
+          {/* <Route path="/user-pages/lockscreen" component={ Lockscreen } /> */}
 
           <Route path="/error-pages/error-404" component={ Error404 } />
           <Route path="/error-pages/error-500" component={ Error500 } />

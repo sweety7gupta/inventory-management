@@ -1,11 +1,13 @@
-const API_ROOT= "http://192.168.225.219:1337/api/v1/";
+const API_ROOT= "http://localhost:1337/api/v1";
 
-export function fetchProducts () {
+function commonApiCall(url, method = 'GET', body) {
     return new Promise((resolve) => {
-        fetch( API_ROOT + "product/get-all", {
+        fetch(`${API_ROOT}${url}`, {
+            method,
             headers: {
                 token: localStorage.getItem('token')
-            }
+            },
+            body: body ? JSON.stringify(body) : null,
         })
         .then((response) => {
             response.json().then((json) => {
@@ -13,4 +15,19 @@ export function fetchProducts () {
             });
         });
     });
+}
+
+export function fetchProducts() {
+    const apiUrl = '/product/get-all';
+    return commonApiCall(apiUrl);
+}
+
+export function login(username, password) {
+    const apiUrl = '/account/login';
+    return commonApiCall(apiUrl, 'POST', { username, password });
+}
+
+export function logout() {
+    const apiUrl = '/account/logout';
+    return commonApiCall(apiUrl, 'GET');
 }

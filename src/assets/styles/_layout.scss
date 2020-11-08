@@ -122,6 +122,7 @@
     .navbar {
       .navbar-brand-wrapper {
         width: $sidebar-width-icon;
+        height: 100px;
         .brand-logo {
           display: none;
         }
@@ -131,6 +132,7 @@
       }
       .navbar-menu-wrapper {
         width: calc(100% - #{$sidebar-width-icon});
+        height: 100px;
       }
     }
     .sidebar {
