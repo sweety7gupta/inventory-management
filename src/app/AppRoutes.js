@@ -13,6 +13,11 @@ const InventoryEntry = lazy(() => import('./inventory-ui/InventoryEntry'));
 
 const BarcodePrinting = lazy(() => import('./barcode-ui/BarcodePrinting'));
 
+const BillGenerate = lazy(() => import('./billing-ui/GenerateBill'));
+
+const Billing = lazy(() => import('./billing-ui/Billing'));
+
+
 const Buttons = lazy(() => import('./basic-ui/Buttons'));
 const Dropdowns = lazy(() => import('./basic-ui/Dropdowns'));
 const Typography = lazy(() => import('./basic-ui/Typography'));
@@ -54,6 +59,9 @@ class AppRoutes extends Component {
 
           <Route path="/barcode-ui/barcodePrinting" component={ BarcodePrinting } />
 
+          <Route path="/billing-ui/generateBill" component={ BillGenerate } />
+          <Route path="/billing-ui/billing" component={ Billing } />
+          
           <Route path="/basic-ui/buttons" component={ Buttons } />
           <Route path="/basic-ui/dropdowns" component={ Dropdowns } />
           <Route path="/basic-ui/typography" component={ Typography } />

@@ -87,29 +87,29 @@ class Sidebar extends Component {
           </li>
 
           <li className={ this.isPathActive('/inventory-ui') ? 'nav-item active' : 'nav-item' }>
-            <div className={ this.state.inventoryMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('inventoryMenuOpen') } data-toggle="collapse">
-              <span className="menu-title"><Trans>Inventrory</Trans></span>
-              <i className="menu-arrow"></i>
+            <Link className="nav-link" to="/inventory-ui/inventoryEntry">
+              <span className="menu-title"><Trans>Inventory</Trans></span>
               <i className="mdi mdi-database-plus menu-icon"></i>
-            </div>
-            <Collapse in={ this.state.inventoryMenuOpen }>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link className={ this.isPathActive('/inventory-ui/inventoryEntry') ? 'nav-link active' : 'nav-link' } to="/inventory-ui/inventoryEntry">
-                  <Trans>Inventory Entry</Trans></Link>
-                </li>
-                {/* <li className="nav-item"> <Link className={ this.isPathActive('/purchase') ? 'nav-link active' : 'nav-link' } to="/purchase">
-                  <Trans>Barcode</Trans></Link>
-                </li> */}
-              </ul>
-            </Collapse>
+            </Link>
           </li>
+
           
+
           <li className={ this.isPathActive('/barcode-ui') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/barcode-ui/barcodePrinting">
               <span className="menu-title"><Trans>Barcode</Trans></span>
               <i className="mdi mdi-barcode menu-icon"></i>
             </Link>
           </li>
+
+          
+          <li className={ this.isPathActive('/bill-ui') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/billing-ui/billing">
+              <span className="menu-title"><Trans>Generate Bill</Trans></span>
+              <i className="mdi mdi-barcode menu-icon"></i>
+            </Link>
+          </li>
+
           {/* <li className={ this.isPathActive('/barcode-ui') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.barcodeUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('barcodeUiMenuOpen') } data-toggle="collapse">
               <span className="menu-title"><Trans>Barcode</Trans></span>

@@ -1,9 +1,7 @@
 import React,{ Component} from "react";
 import "./Barcode.css";
 import Barcode from 'react-barcode';
-import html2canvas from  'html2canvas';
-import Barcodepdf from './Barcodepdf'
-import { TextField, Button } from '@material-ui/core';
+import {  Button } from '@material-ui/core';
 import ProductSearch from '../inventory-ui/ProductSearch';
 import { useBarcode } from '@createnextapp/react-barcode';
 import domtoimage from 'dom-to-image';
