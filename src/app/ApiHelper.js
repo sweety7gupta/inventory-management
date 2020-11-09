@@ -22,6 +22,16 @@ export function fetchProducts() {
     return commonApiCall(apiUrl);
 }
 
+export function saveProduct({ barcode, productName, productShortName }) {
+    const apiUrl = '/product/save';
+    return commonApiCall(apiUrl, 'POST', { barcode, productName, productShortName });
+}
+
+export function getNextCustomBarcode() {
+    const apiUrl = '/product/get-custom-barcode';
+    return commonApiCall(apiUrl);
+};
+
 export function login(username, password) {
     const apiUrl = '/account/login';
     return commonApiCall(apiUrl, 'POST', { username, password });

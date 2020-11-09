@@ -8,7 +8,7 @@ class InventoryCustomBarcode extends Component{
         return (
             // <div>
                 <div className="row">
-                    <div className="col-md-8 grid-margin stretch-card">
+                    <div className="col-md-12 grid-margin stretch-card">
                         <div className="card card-body-container card-body-style">
                             <InventoryTabHeading headerName="Custom Barcode"/>       
 

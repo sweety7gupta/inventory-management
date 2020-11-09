@@ -2,9 +2,7 @@ import React,{ Component} from "react";
 import "./Barcode.css";
 import Barcode from 'react-barcode';
 import {  Button } from '@material-ui/core';
-import ProductSearch from '../inventory-ui/ProductSearch';
-import { useBarcode } from '@createnextapp/react-barcode';
-import domtoimage from 'dom-to-image';
+import ProductSearch from '../components/common/ProductSearch';
 
 class BarcodePrinting extends Component{
    

@@ -89,9 +89,9 @@ class Sidebar extends Component {
               <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item active' : 'nav-item' }>
-            <Link className="nav-link" to="/dashboard">
-              <span className="menu-title"><Trans>Dashboard</Trans></span>
+          <li className={ this.isPathActive('/add-edit-product') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/add-edit-product">
+              <span className="menu-title"><Trans>Add / Edit Product</Trans></span>
               <i className="mdi mdi-home menu-icon"></i>
             </Link>
           </li>

@@ -2,6 +2,7 @@ import React, { Component,Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Spinner from '../app/shared/Spinner';
+import AddEditProduct from './components/product/AddEditProduct';
 
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
@@ -45,13 +46,13 @@ const BlankPage = lazy(() => import('./general-pages/BlankPage'));
 
 
 
-
 class AppRoutes extends Component {
   render () {
     return (
       <Suspense fallback={<Spinner/>}>
         <Switch>
           <Route exact path="/dashboard" component={ Dashboard } />
+          <Route exact path="/add-edit-product" component={ AddEditProduct } />
           {/* <Route exact path="/login-ui" component={ Login } /> */}
 
           <Route exact path="/purchase" component={ Purchase } />

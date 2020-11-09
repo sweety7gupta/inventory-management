@@ -1,6 +1,6 @@
 import React,{ Component} from "react";
 import { TextField, Button } from '@material-ui/core';
-import ProductSearch from '../inventory-ui/ProductSearch';
+import ProductSearch from '../components/common/ProductSearch';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import './GenerateBill.css'
 

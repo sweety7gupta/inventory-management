@@ -1,12 +1,3 @@
-.text-field-container {
-    display: flex;
-    padding: 0.5rem 0.5rem;
-}
-
-.text-field {
-    flex: 1;
-}
-
 .card-body-container {
     padding: 0.5rem;
 }
@@ -39,14 +30,16 @@
      list-style-type: none;
      padding-left: 0;
  }
- 
- .autocomplete-popup-indicator {
-     display: none;
+
+ .info-text {
+	margin: 1rem 1.5rem 0;
  }
 
- .tab-heading{
-     padding-left: 20px;
-     padding-top: 10px;
+ .text-field-container {
+    display: flex;
+    padding: 0.5rem 0.5rem;
+}
 
- }
- 
+.text-field {
+    flex: 1;
+}
