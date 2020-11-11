@@ -8,10 +8,10 @@ class ProductSearch extends Component {
     this.props.onProductSelect(value);
   }
 
-  render (){
+  render () {
     return (
       <div>
-        <div className="card-body text-field-container input_container"  >    
+        <div className="card-body text-field-container input_container">
             <Autocomplete
               id="productSarchCombo"
               options={this.props.products}
@@ -27,6 +27,12 @@ class ProductSearch extends Component {
               }
               size= "small"
               className="text-field search"
+              ListboxProps={{
+                style: {
+                  maxHeight: 600,
+                  overflow: 'auto',
+                }
+              }}
             />
         </div>
       </div>

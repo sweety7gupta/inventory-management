@@ -32,6 +32,11 @@ export function getNextCustomBarcode() {
     return commonApiCall(apiUrl);
 };
 
+export function addToInventory(products) {
+    const apiUrl = '/inventory/add';
+    return commonApiCall(apiUrl, 'POST', { products });
+}
+
 export function login(username, password) {
     const apiUrl = '/account/login';
     return commonApiCall(apiUrl, 'POST', { username, password });
