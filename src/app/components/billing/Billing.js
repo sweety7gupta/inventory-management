@@ -29,26 +29,33 @@ class Billing extends Component {
                 cellStyle: commonCellStyle,
                 cellStyle: { padding: '0 24px', width: '300px' },
                 editable: false,
+			},
+			{
+                title: 'W/V/Q',
+                field: 'size',
+                cellStyle: commonCellStyle,
+                cellStyle: { padding: '0 24px', width: '80px' },
+                editable: false,
             },
             {
 				title: 'MRP',
 				field: 'mrp',
 				type: 'numeric',
-				cellStyle: { ...commonCellStyle, maxWidth: '80px' },
+				cellStyle: { ...commonCellStyle, width: '80px' },
 				editable: false,
 			},
             {
-				title: 'Selling Price',
+				title: 'Price',
 				field: 'sellingPrice',
 				type: 'numeric',
-				cellStyle: { ...commonCellStyle, maxWidth: '140px' },
+				cellStyle: { ...commonCellStyle, width: '140px' },
 				editable: false,
 			},
             {
 				title: 'Quantity',
 				field: 'billedQuantity',
 				type: 'numeric',
-				cellStyle: { ...commonCellStyle, maxWidth: '100px' },
+				cellStyle: { ...commonCellStyle, width: '100px' },
 			},
         ],
         submitDisabled: false,
@@ -59,6 +66,10 @@ class Billing extends Component {
 			.then(data => {
 				this.setState({ products: data });
 			});
+
+		setTimeout(() => {
+			this.billingTable && this.billingTable.setState({ showAddRow: true });
+		}, 3000);
 	}
 
     handleProductSelect = (value) => {
@@ -222,12 +233,31 @@ class Billing extends Component {
         }
 	};
 
+	getBillingProductsData = () => {
+		const { billedProducts } = this.state;
+		let totalMRP = 0, totalPrice = 0, totalQuantity = 0;
+
+		for (let i=0; i<billedProducts.length; i++) {
+			const { mrp, sellingPrice, billedQuantity } = billedProducts[i];
+
+			totalMRP += (mrp * billedQuantity);
+			totalPrice += (sellingPrice * billedQuantity);
+			totalQuantity += billedQuantity;
+		}
+
+		if (billedProducts.length > 0) {
+			return [ ...billedProducts, { barcode: 'Total', mrp: totalMRP, sellingPrice: totalPrice, billedQuantity: totalQuantity } ];
+		}
+
+		return billedProducts;
+	};
+
     render() {
         const { billedProducts, columns, submitDisabled } = this.state;
 
         return (
             <div style={{ background: 'white' }}>
-                <div style={{ marginBottom: '0', overflow: 'hidden' }}>
+                <div style={{ marginBottom: '0', overflow: 'hidden', position: 'relative' }}>
                     <MaterialTable
 						components={{
 							Body: props => {
@@ -236,7 +266,7 @@ class Billing extends Component {
 						}}
                         title="New Billing"
                         columns={columns}
-                        data={billedProducts}
+                        data={this.getBillingProductsData()}
                         editable={{
 							onRowUpdate: this.handleRowUpdate,
 							onRowDelete: this.handleRowDelete,
@@ -246,22 +276,24 @@ class Billing extends Component {
                             paging: false,
                             sorting: false,
                             actionsColumnIndex: columns.length,
-                            headerStyle: { padding: '0 24px' },
+							headerStyle: { padding: '0 24px' },
+							rowStyle: (rowData, index) => ({
+								fontWeight: (index === billedProducts.length ? 'bold' : 'normal'),
+								background: (index === billedProducts.length ? '#eaeaea' : 'white'),
+							})
                         }}
-                        icons={tableIcons}
+						icons={tableIcons}
+						innerRef={ref => this.billingTable = ref}
                     />
-                </div>
 
-				<div className="total-row">
-					<div className="total-heading">Total</div>
-					<div className="total-mrp">250</div>
-					<div className="total-sale">200</div>
-					<div className="total-quantity">20</div>
-				</div>
+					{billedProducts.length > 0 && (
+						<div style={{ position: 'absolute', bottom: '1px', right: 0, background: '#eaeaea', width: 120, height: 48 }}></div>
+					)}
+                </div>
 
                 <br/>
 
-				<div className="card-body" style={{ width: '360px' }}>
+				<div style={{ width: '360px', padding: '0 24px' }}>
 					<ProductSearch
                         products={this.state.products}
                         onProductSelect={this.handleProductSelect}
