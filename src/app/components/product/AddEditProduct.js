@@ -25,8 +25,8 @@ export default class AddEditProduct extends Component {
 			});
 	}
 
-	addOrUpdateProduct = ({ barcode, productName, productShortName }) => {
-		ApiHelper.saveProduct({ barcode, productName, productShortName })
+	addOrUpdateProduct = ({ barcode, productName, productShortName, size }) => {
+		ApiHelper.saveProduct({ barcode, productName, productShortName, size })
 			.then((json) => {
 				if (json.code === 'success') {
 					alert('Product saved successfully!');

@@ -8,6 +8,10 @@ class ProductSearch extends Component {
     this.props.onProductSelect(value);
   }
 
+  handleSearchTextChange = (event) => {
+    console.log(event.target.value);
+  };
+
   render () {
     return (
       <div>
@@ -23,6 +27,8 @@ class ProductSearch extends Component {
                   {...params}
                   label="Search"
                   variant="outlined"
+                  autoFocus
+                  onChange={this.handleSearchTextChange}
                 />
               }
               size= "small"

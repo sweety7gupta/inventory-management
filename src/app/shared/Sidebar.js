@@ -89,10 +89,18 @@ class Sidebar extends Component {
               <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
           </li>
+
+          <li className={ this.isPathActive('/billing') ? 'nav-item active' : 'nav-item' }>
+            <Link className="nav-link" to="/billing">
+              <span className="menu-title"><Trans>New Billing</Trans></span>
+              <i className="mdi mdi-script menu-icon"></i>
+            </Link>
+          </li>
+
           <li className={ this.isPathActive('/add-edit-product') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/add-edit-product">
               <span className="menu-title"><Trans>Add / Edit Product</Trans></span>
-              <i className="mdi mdi-home menu-icon"></i>
+              <i className="mdi mdi-playlist-plus menu-icon"></i>
             </Link>
           </li>
 
@@ -108,17 +116,17 @@ class Sidebar extends Component {
           <li className={ this.isPathActive('/barcode-ui') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/barcode-ui/barcodePrinting">
               <span className="menu-title"><Trans>Barcode</Trans></span>
-              <i className="mdi mdi-barcode menu-icon"></i>
+              <i className="mdi mdi-barcode-scan menu-icon"></i>
             </Link>
           </li>
 
           
-          <li className={ this.isPathActive('/bill-ui') ? 'nav-item active' : 'nav-item' }>
+          {/* <li className={ this.isPathActive('/bill-ui') ? 'nav-item active' : 'nav-item' }>
             <Link className="nav-link" to="/billing-ui/billing">
               <span className="menu-title"><Trans>Generate Bill</Trans></span>
               <i className="mdi mdi-barcode menu-icon"></i>
             </Link>
-          </li>
+          </li> */}
 
           {/* <li className={ this.isPathActive('/barcode-ui') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.barcodeUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('barcodeUiMenuOpen') } data-toggle="collapse">

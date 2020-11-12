@@ -1,76 +1,93 @@
 import React, {Component} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import './Inventory.css';
-import MaterialTable, { MTableEditField } from 'material-table';
-import { tableIcons } from '../components/common/materialTableIcons';
-import ProductSearch from '../components/common/ProductSearch';
-import * as ApiHelper from '../ApiHelper';
-import * as utils from '../utils/util';
+import '../../inventory-ui/Inventory.css';
+import MaterialTable, { MTableBody } from 'material-table';
+import { tableIcons } from '../../components/common/materialTableIcons';
+import ProductSearch from '../../components/common/ProductSearch';
+import * as ApiHelper from '../../ApiHelper';
+import * as utils from '../../utils/util';
 
 const commonCellStyle = { padding: '0 24px' };
 
-class InventoryEntry extends Component {
+class Billing extends Component {
     lastRow = null;
 
     state = {
         products: [],
-        currentBarcode: '',
         currentProductName: '',
-        inventoryProducts: [],
+        billedProducts: [],
         columns: [
             {
                 title: 'Barcode',
                 field: 'barcode',
-                cellStyle: { padding: '0 24px', width: '360px' },
-                editComponent: props => (
-                    <ProductSearch
-                        products={this.state.products}
-                        onProductSelect={(value) => this.handleProductSelect(props, value)}
-                    />
-                ),
+				cellStyle: { padding: '0 24px', width: '360px' },
+				editable: false,
             },
             {
                 title: 'Product Name',
                 field: 'productName',
                 cellStyle: commonCellStyle,
-                editable: false,
                 cellStyle: { padding: '0 24px', width: '300px' },
+                editable: false,
             },
             {
-                title: 'W/V/Q',
-                field: 'size',
-                cellStyle: commonCellStyle,
-            },
-            { title: 'MRP', field: 'mrp', type: 'numeric', cellStyle: commonCellStyle },
-            { title: 'Purchase Price', field: 'purchasePrice', type: 'numeric', cellStyle: commonCellStyle },
-            { title: 'Selling Price', field: 'sellingPrice', type: 'numeric', cellStyle: commonCellStyle },
-            { title: 'Quantity', field: 'quantity', type: 'numeric', cellStyle: commonCellStyle },
+				title: 'MRP',
+				field: 'mrp',
+				type: 'numeric',
+				cellStyle: { ...commonCellStyle, maxWidth: '80px' },
+				editable: false,
+			},
+            {
+				title: 'Selling Price',
+				field: 'sellingPrice',
+				type: 'numeric',
+				cellStyle: { ...commonCellStyle, maxWidth: '140px' },
+				editable: false,
+			},
+            {
+				title: 'Quantity',
+				field: 'billedQuantity',
+				type: 'numeric',
+				cellStyle: { ...commonCellStyle, maxWidth: '100px' },
+			},
         ],
         submitDisabled: false,
     }
 
     componentDidMount() {
-        utils.fetchProductsAndPrices()
-            .then((data) => {
-                this.setState({ products: data });
-            });
+		utils.fetchProductsAndPrices()
+			.then(data => {
+				this.setState({ products: data });
+			});
 	}
 
-    handleProductSelect = (props, value) => {
-        const { barcode, productName } = value || {};
-        props.onChange(barcode);
-        props.onRowDataChange(value);
-        this.setState({
-            currentBarcode: barcode,
-            currentProductName: productName,
-        });
+    handleProductSelect = (value) => {
+		if (value) {
+			const { billedProducts } = this.state;
+			const productAddedIndex = billedProducts.findIndex(bp => bp.barcode === value.barcode);
+			const isProductAdded = productAddedIndex > -1;
+
+			if (isProductAdded) { // update quantity if product already exists
+				const currentQuantity = billedProducts[productAddedIndex].billedQuantity;
+				const updatedRow = { ...value, billedQuantity: currentQuantity + 1 };
+
+				const nBilledProducts = [ ...billedProducts ];
+				nBilledProducts[productAddedIndex] = updatedRow;
+
+				this.setState({ billedProducts: nBilledProducts });
+			} else { // add product row
+				this.setState(prevState => ({
+					billedProducts: [ ...prevState.billedProducts, { ...value, billedQuantity: 1 } ],
+				}));
+			}
+		}
     };
 
     validateRow = (newData = {}) => {
-        const { inventoryProducts, currentProductName } = this.state;
+        const { billedProducts, currentProductName } = this.state;
 
-        if (inventoryProducts.find(p => p.barcode === newData.barcode)) {
-            return `"${currentProductName}" already added!`;
+        if (!billedProducts.find(p => p.barcode === newData.barcode)) {
+            return `"${currentProductName}" does not exist`;
         }
 
         if (!newData.barcode) {
@@ -101,7 +118,7 @@ class InventoryEntry extends Component {
     };
 
     handleRowAdd = (newData) => {
-        const { inventoryProducts, currentProductName } = this.state;
+        const { billedProducts, currentProductName } = this.state;
 
         return new Promise((resolve, reject) => {
             if (this.lastRow && this.lastRow.barcode === newData.barcode) {
@@ -122,24 +139,45 @@ class InventoryEntry extends Component {
 
             setTimeout(() => {
                 this.setState(prevState => ({
-                    inventoryProducts: [ ...prevState.inventoryProducts, newRow ],
+                    billedProducts: [ ...prevState.billedProducts, newRow ],
                 }));
 
                 resolve();
             });
         });
-    }
+	}
+
+	handleRowUpdate = (newData, oldData) => {
+		const { billedProducts } = this.state;
+
+		return new Promise((resolve, reject) => {
+			if (newData.billedQuantity <= 0) {
+				reject();
+				return;
+			}
+
+			setTimeout(() => {
+				const dataUpdate = [...billedProducts];
+				const index = oldData.tableData.id;
+				dataUpdate[index] = newData;
+				
+				this.setState({ billedProducts: dataUpdate });
+
+				resolve();
+			});
+		});
+	};
 
     handleRowDelete = oldData => {
-        const { inventoryProducts } = this.state;
+        const { billedProducts } = this.state;
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                const dataDelete = [ ...inventoryProducts ];
+                const dataDelete = [ ...billedProducts ];
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
                 this.setState({
-                    inventoryProducts: [ ...dataDelete ],
+                    billedProducts: [ ...dataDelete ],
                 });
 
                 resolve();
@@ -148,7 +186,7 @@ class InventoryEntry extends Component {
     }
 
     handleSaveProduct = () => {
-        const { inventoryProducts, submitDisabled } = this.state;
+        const { billedProducts, submitDisabled } = this.state;
 
         if (submitDisabled) {
             return;
@@ -156,13 +194,13 @@ class InventoryEntry extends Component {
 
         this.setState({ submitDisabled: true });
 
-        if (!inventoryProducts || inventoryProducts.length === 0) {
+        if (!billedProducts || billedProducts.length === 0) {
             alert('Please add a few products to inventory.');
             this.setState({ submitDisabled: false });
             return;
         }
 
-        ApiHelper.addToInventory(inventoryProducts)
+        ApiHelper.addToInventory(billedProducts)
             .then((json) => {
                 if (json.code === 'success') {
                     alert('Inventory added successfully!');
@@ -182,38 +220,59 @@ class InventoryEntry extends Component {
         if (window.confirm('Are you sure you want to discard?')) {
             window.location.reload();
         }
-    }
+	};
 
     render() {
-        const { inventoryProducts, columns, submitDisabled } = this.state;
+        const { billedProducts, columns, submitDisabled } = this.state;
 
         return (
             <div style={{ background: 'white' }}>
                 <div style={{ marginBottom: '0', overflow: 'hidden' }}>
                     <MaterialTable
-                        title="Add to Inventory"
+						components={{
+							Body: props => {
+								return billedProducts.length > 0 ? <MTableBody {...props} /> : null
+							}
+						}}
+                        title="New Billing"
                         columns={columns}
-                        data={inventoryProducts}
+                        data={billedProducts}
                         editable={{
-                            onRowAdd: (newData) => this.handleRowAdd(newData),
-                            onRowDelete: this.handleRowDelete,
+							onRowUpdate: this.handleRowUpdate,
+							onRowDelete: this.handleRowDelete,
                         }}
                         options={{
                             search: false,
                             paging: false,
                             sorting: false,
                             actionsColumnIndex: columns.length,
-                            headerStyle: { textAlign: 'left', padding: '0 24px' },
+                            headerStyle: { padding: '0 24px' },
                         }}
                         icons={tableIcons}
                     />
                 </div>
 
+				<div className="total-row">
+					<div className="total-heading">Total</div>
+					<div className="total-mrp">250</div>
+					<div className="total-sale">200</div>
+					<div className="total-quantity">20</div>
+				</div>
+
+                <br/>
+
+				<div className="card-body" style={{ width: '360px' }}>
+					<ProductSearch
+                        products={this.state.products}
+                        onProductSelect={this.handleProductSelect}
+                    />
+				</div>
+
                 <br/>
 
                 <div className="card-body text-right">
-                    <Button variant="contained" color="primary" onClick={this.handleSaveProduct} disabled={submitDisabled || inventoryProducts.length === 0}>
-                        Save Inventory
+                    <Button variant="contained" color="primary" onClick={this.handleSaveProduct} disabled={submitDisabled || billedProducts.length === 0}>
+                        Confirm Order
                     </Button>
 
                     <Button variant="contained" color="default" onClick={this.resetForm} style={{ marginLeft: 16 }}>
@@ -225,4 +284,4 @@ class InventoryEntry extends Component {
     }
 }
 
-export default InventoryEntry;
+export default Billing;

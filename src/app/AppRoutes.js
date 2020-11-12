@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Spinner from '../app/shared/Spinner';
 import AddEditProduct from './components/product/AddEditProduct';
+import Billing from './components/billing/Billing';
 
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
@@ -16,7 +17,7 @@ const BarcodePrinting = lazy(() => import('./barcode-ui/BarcodePrinting'));
 
 const BillGenerate = lazy(() => import('./billing-ui/GenerateBill'));
 
-const Billing = lazy(() => import('./billing-ui/Billing'));
+// const Billing = lazy(() => import('./billing-ui/Billing'));
 
 
 const Buttons = lazy(() => import('./basic-ui/Buttons'));
@@ -57,6 +58,7 @@ class AppRoutes extends Component {
 
           <Route exact path="/purchase" component={ Purchase } />
           <Route path="/inventory-ui/inventoryEntry" component={ InventoryEntry } />
+          <Route path="/billing" component={ Billing } />
 
           <Route path="/barcode-ui/barcodePrinting" component={ BarcodePrinting } />
 

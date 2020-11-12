@@ -10,9 +10,13 @@ function commonApiCall(url, method = 'GET', body) {
             body: body ? JSON.stringify(body) : null,
         })
         .then((response) => {
-            response.json().then((json) => {
-                resolve(json);
-            });
+            if (response.status === 401) {
+                window.location.href = '/login';
+            } else {
+                response.json().then((json) => {
+                    resolve(json);
+                });
+            }
         });
     });
 }
@@ -22,9 +26,9 @@ export function fetchProducts() {
     return commonApiCall(apiUrl);
 }
 
-export function saveProduct({ barcode, productName, productShortName }) {
+export function saveProduct({ barcode, productName, productShortName, size }) {
     const apiUrl = '/product/save';
-    return commonApiCall(apiUrl, 'POST', { barcode, productName, productShortName });
+    return commonApiCall(apiUrl, 'POST', { barcode, productName, productShortName, size });
 }
 
 export function getNextCustomBarcode() {
@@ -35,6 +39,11 @@ export function getNextCustomBarcode() {
 export function addToInventory(products) {
     const apiUrl = '/inventory/add';
     return commonApiCall(apiUrl, 'POST', { products });
+}
+
+export function getInventoryStatus() {
+    const apiUrl = '/inventory/status';
+    return commonApiCall(apiUrl);
 }
 
 export function login(username, password) {

@@ -6,6 +6,7 @@ const formInitialState = {
 	barcode: '',
 	productName: '',
 	productShortName: '',
+	sie: '',
 	searchValue: '',
 	validations: {},
 };
@@ -19,6 +20,7 @@ export default class AddProductWithExistingBarcode extends Component {
 				barcode: value.barcode,
 				productName: value.productName,
 				productShortName: value.productShortName,
+				size: value.size,
 			});
 		} else {
 			this.resetForm();
@@ -26,17 +28,18 @@ export default class AddProductWithExistingBarcode extends Component {
 	};
 
 	handleAllChange = (value) => {
-        this.setState(value);
-        this.validate(value);
+		this.setState(value);
+		this.validate(value);
 	};
 
 	handleSaveProduct = () => {
-		const { barcode, productName, productShortName } = this.state;
+		const { barcode, productName, productShortName, size } = this.state;
 
 		this.props.addOrUpdateProduct({
 			barcode,
 			productName,
 			productShortName,
+			size,
 		});
 	}
 
@@ -50,8 +53,8 @@ export default class AddProductWithExistingBarcode extends Component {
             if (value.barcode.startsWith('0')) {
                 validations.barcode = 'Barcode should not start with 0';
             }
-            else if (value.barcode.length < 13 || value.barcode.length > 13 ) {
-                validations.barcode = 'Invalid Barcode!!!';
+            else if (value.barcode.length < 6 ) {
+                validations.barcode = 'Invalid Barcode.';
             }  else {
                 validations.barcode = '';
             }
@@ -61,7 +64,14 @@ export default class AddProductWithExistingBarcode extends Component {
             } else {
                 validations.productName = '';
             }
+		} else if (currentKey === 'size') {
+            if (value.size.length <= 1) {
+                validations.size = 'Enter valid weight / volumne / quantity';
+            } else {
+                validations.size = '';
+            }
         }
+		
 
         this.setState({ validations });
 	};
@@ -117,11 +127,27 @@ export default class AddProductWithExistingBarcode extends Component {
 
 						<div className="card-body text-field-container">  
 							<TextField
-								id="productDetails-basic"
+								id="productShortName-basic"
 								label="Product Short Name"
 								variant="outlined"
 								value={this.state.productShortName}
+								error={!!this.state.validations.productShortName}
+								helperText={this.state.validations.productShortName}
 								onChange={(event) => this.handleAllChange({ productShortName: event.target.value })}
+								className="text-field"
+								size= "small"
+							/>
+						</div>
+
+						<div className="card-body text-field-container">
+							<TextField
+								id="size-basic"
+								label="Weight / Volume / Quantity"
+								variant="outlined"
+								value={this.state.size}
+								error={!!this.state.validations.size}
+								helperText={this.state.validations.size}
+								onChange={(event) => this.handleAllChange({ size: event.target.value })}
 								className="text-field"
 								size= "small"
 							/>
