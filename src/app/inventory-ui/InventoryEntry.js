@@ -89,8 +89,8 @@ class InventoryEntry extends Component {
             return 'Please enter valid selling price';
         }
 
-        if (newData.sellingPrice > newData.purchasePrice) {
-            return 'Selling price is greater than your purchase price';
+        if (newData.sellingPrice < newData.purchasePrice) {
+            return 'Selling price is less than your purchase price';
         }
 
         if (!newData.quantity || newData.quantity <= 0) {

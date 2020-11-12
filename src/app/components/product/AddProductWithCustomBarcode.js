@@ -7,6 +7,7 @@ export default class AddProductWithCustomBarcode extends Component {
 		barcode: '',
 		productName: '',
 		productShortName: '',
+		size: '',
 		validations: {},
 	};
 
@@ -60,12 +61,13 @@ export default class AddProductWithCustomBarcode extends Component {
 	};
 
 	handleSaveProduct = () => {
-		const { barcode, productName, productShortName } = this.state;
+		const { barcode, productName, productShortName, size } = this.state;
 
 		this.props.addOrUpdateProduct({
 			barcode,
 			productName,
 			productShortName,
+			size,
 		});
 	}
 
@@ -121,6 +123,20 @@ export default class AddProductWithCustomBarcode extends Component {
 								variant="outlined"
 								value={this.state.productShortName}
 								onChange={(event) => this.handleAllChange({ productShortName: event.target.value })}
+								className="text-field"
+								size= "small"
+							/>
+						</div>
+
+						<div className="card-body text-field-container">
+							<TextField
+								id="size-basic"
+								label="Weight / Volume / Quantity"
+								variant="outlined"
+								value={this.state.size}
+								error={!!this.state.validations.size}
+								helperText={this.state.validations.size}
+								onChange={(event) => this.handleAllChange({ size: event.target.value })}
 								className="text-field"
 								size= "small"
 							/>

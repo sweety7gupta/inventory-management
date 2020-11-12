@@ -27,7 +27,6 @@ class ProductSearch extends Component {
                   {...params}
                   label="Search"
                   variant="outlined"
-                  autoFocus
                   onChange={this.handleSearchTextChange}
                 />
               }

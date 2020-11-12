@@ -58,7 +58,8 @@ class Billing extends Component {
 				cellStyle: { ...commonCellStyle, width: '100px' },
 			},
         ],
-        submitDisabled: false,
+		submitDisabled: false,
+		barcode: '',
     }
 
     componentDidMount() {
@@ -74,95 +75,58 @@ class Billing extends Component {
 
     handleProductSelect = (value) => {
 		if (value) {
-			const { billedProducts } = this.state;
+			const { products, billedProducts } = this.state;
 			const productAddedIndex = billedProducts.findIndex(bp => bp.barcode === value.barcode);
 			const isProductAdded = productAddedIndex > -1;
+			const validProduct = products.find(p => p.barcode === value.barcode);
 
-			if (isProductAdded) { // update quantity if product already exists
-				const currentQuantity = billedProducts[productAddedIndex].billedQuantity;
-				const updatedRow = { ...value, billedQuantity: currentQuantity + 1 };
-
-				const nBilledProducts = [ ...billedProducts ];
-				nBilledProducts[productAddedIndex] = updatedRow;
-
-				this.setState({ billedProducts: nBilledProducts });
-			} else { // add product row
-				this.setState(prevState => ({
-					billedProducts: [ ...prevState.billedProducts, { ...value, billedQuantity: 1 } ],
-				}));
+			if (validProduct) {
+				this.addProductForBilling(validProduct);
+			} else {
+				alert('Invalid barcode');
 			}
 		}
-    };
+	};
+	
+	addProductForBilling = (product) => {
+		const { billedProducts } = this.state;
 
-    validateRow = (newData = {}) => {
-        const { billedProducts, currentProductName } = this.state;
+		const productAddedIndex = billedProducts.findIndex(bp => bp.barcode === product.barcode);
+		const isProductAdded = productAddedIndex > -1;
 
-        if (!billedProducts.find(p => p.barcode === newData.barcode)) {
-            return `"${currentProductName}" does not exist`;
-        }
+		if (!product.quantity || (isProductAdded && product.quantity < (billedProducts[productAddedIndex].billedQuantity + 1))) {
+			alert(`"${product.productName} ${product.size}" quantity available: ${product.quantity}`);
+			return;
+		}
 
-        if (!newData.barcode) {
-            return 'Please select a product';
-        }
+		if (isProductAdded) { // update quantity if product already exists
+			const currentQuantity = billedProducts[productAddedIndex].billedQuantity;
+			const updatedRow = { ...product, billedQuantity: currentQuantity + 1 };
 
-        if (!newData.mrp || newData.mrp <= 0) {
-            return 'Please enter valid MRP';
-        }
+			const nBilledProducts = [ ...billedProducts ];
+			nBilledProducts[productAddedIndex] = updatedRow;
 
-        if (!newData.purchasePrice || newData.purchasePrice <= 0) {
-            return 'Please enter valid purchase price';
-        }
-
-        if (!newData.sellingPrice || newData.sellingPrice <= 0) {
-            return 'Please enter valid selling price';
-        }
-
-        if (newData.sellingPrice > newData.purchasePrice) {
-            return 'Selling price is greater than your purchase price';
-        }
-
-        if (!newData.quantity || newData.quantity <= 0) {
-            return 'Quantity should be greater than zero';
-        }
-
-        return '';
-    };
-
-    handleRowAdd = (newData) => {
-        const { billedProducts, currentProductName } = this.state;
-
-        return new Promise((resolve, reject) => {
-            if (this.lastRow && this.lastRow.barcode === newData.barcode) {
-                reject();
-                return;
-            }
-
-            const message = this.validateRow(newData);
-
-            if (message) {
-                alert(message);
-                reject();
-                return;
-            }
-            
-            const newRow = { ...newData, productName: currentProductName };
-            this.lastRow = newRow;
-
-            setTimeout(() => {
-                this.setState(prevState => ({
-                    billedProducts: [ ...prevState.billedProducts, newRow ],
-                }));
-
-                resolve();
-            });
-        });
+			this.setState({ billedProducts: nBilledProducts });
+		} else { // add product row
+			this.setState(prevState => ({
+				billedProducts: [ ...prevState.billedProducts, { ...product, billedQuantity: 1 } ],
+			}));
+		}
 	}
 
 	handleRowUpdate = (newData, oldData) => {
-		const { billedProducts } = this.state;
+		const { products, billedProducts } = this.state;
+		const product = products.find(p => p.barcode === newData.barcode);
 
 		return new Promise((resolve, reject) => {
 			if (newData.billedQuantity <= 0) {
+				alert("Invalid quantity");
+				reject();
+				return;
+			}
+
+			if (newData.billedQuantity > product.quantity) {
+				alert(`"${product.productName}" not in stock`);
 				reject();
 				return;
 			}
@@ -194,7 +158,23 @@ class Billing extends Component {
                 resolve();
             }, 1000)
         });
-    }
+	}
+	
+	handleBarcodeInputChange = (event) => {
+		const value = event.target.value;
+		const { products } = this.state;
+
+		const product = products.find(p => p.barcode === value);
+
+		if (product) {
+			this.addProductForBilling(product);
+			setTimeout(() => {
+				this.setState({ barcode: '' });
+			}, 1000);
+		} else {
+			this.setState({ barcode: value });
+		}
+	};
 
     handleSaveProduct = () => {
         const { billedProducts, submitDisabled } = this.state;
@@ -293,11 +273,31 @@ class Billing extends Component {
 
                 <br/>
 
-				<div style={{ width: '360px', padding: '0 24px' }}>
-					<ProductSearch
-                        products={this.state.products}
-                        onProductSelect={this.handleProductSelect}
-                    />
+				<div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '24px' }}>
+					<div className="card-body text-field-container" style={{ maxWidth: '300px' }}>
+						<TextField
+							autoFocus={true}
+							id="barcode-basic"
+							label="Barcode"
+							variant="outlined"
+							value={this.state.barcode}
+							onChange={this.handleBarcodeInputChange}
+							className="text-field"
+							required
+							inputProps={{ maxLength: 13 }}
+							size= "small"
+						/>
+					</div>
+
+					<div style={{ display: 'flex', alignItems: 'center', padding: '0 24px' }}>
+						Manual Product Search:&nbsp;&nbsp;
+						<div style={{ width: '360px' }}>
+							<ProductSearch
+								products={this.state.products}
+								onProductSelect={this.handleProductSelect}
+							/>
+						</div>
+					</div>
 				</div>
 
                 <br/>
