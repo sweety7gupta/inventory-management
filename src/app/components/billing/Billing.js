@@ -75,9 +75,7 @@ class Billing extends Component {
 
     handleProductSelect = (value) => {
 		if (value) {
-			const { products, billedProducts } = this.state;
-			const productAddedIndex = billedProducts.findIndex(bp => bp.barcode === value.barcode);
-			const isProductAdded = productAddedIndex > -1;
+			const { products } = this.state;
 			const validProduct = products.find(p => p.barcode === value.barcode);
 
 			if (validProduct) {
