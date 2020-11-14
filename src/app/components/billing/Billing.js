@@ -6,6 +6,7 @@ import { tableIcons } from '../../components/common/materialTableIcons';
 import ProductSearch from '../../components/common/ProductSearch';
 import * as ApiHelper from '../../ApiHelper';
 import * as utils from '../../utils/util';
+import PrintBillView from './PrintBillView';
 
 const commonCellStyle = { padding: '0 24px' };
 
@@ -230,86 +231,101 @@ class Billing extends Component {
 		return billedProducts;
 	};
 
+	handlePrintBill = () => {
+		window.print();
+	};
+
     render() {
         const { billedProducts, columns, submitDisabled } = this.state;
 
         return (
-            <div style={{ background: 'white' }}>
-                <div style={{ marginBottom: '0', overflow: 'hidden', position: 'relative' }}>
-                    <MaterialTable
-						components={{
-							Body: props => {
-								return billedProducts.length > 0 ? <MTableBody {...props} /> : null
-							}
-						}}
-                        title="New Billing"
-                        columns={columns}
-                        data={this.getBillingProductsData()}
-                        editable={{
-							onRowUpdate: this.handleRowUpdate,
-							onRowDelete: this.handleRowDelete,
-                        }}
-                        options={{
-                            search: false,
-                            paging: false,
-                            sorting: false,
-                            actionsColumnIndex: columns.length,
-							headerStyle: { padding: '0 24px' },
-							rowStyle: (rowData, index) => ({
-								fontWeight: (index === billedProducts.length ? 'bold' : 'normal'),
-								background: (index === billedProducts.length ? '#eaeaea' : 'white'),
-							})
-                        }}
-						icons={tableIcons}
-						innerRef={ref => this.billingTable = ref}
-                    />
-
-					{billedProducts.length > 0 && (
-						<div style={{ position: 'absolute', bottom: '1px', right: 0, background: '#eaeaea', width: 120, height: 48 }}></div>
-					)}
-                </div>
-
-                <br/>
-
-				<div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '24px' }}>
-					<div className="card-body text-field-container" style={{ maxWidth: '300px' }}>
-						<TextField
-							autoFocus={true}
-							id="barcode-basic"
-							label="Barcode"
-							variant="outlined"
-							value={this.state.barcode}
-							onChange={this.handleBarcodeInputChange}
-							className="text-field"
-							required
-							inputProps={{ maxLength: 13 }}
-							size= "small"
+			<React.Fragment>
+				<div className="no-print" style={{ background: 'white' }}>
+					<div style={{ marginBottom: '0', overflow: 'hidden', position: 'relative' }}>
+						<MaterialTable
+							components={{
+								Body: props => {
+									return billedProducts.length > 0 ? <MTableBody {...props} /> : null
+								}
+							}}
+							title="New Billing"
+							columns={columns}
+							data={this.getBillingProductsData()}
+							editable={{
+								onRowUpdate: this.handleRowUpdate,
+								onRowDelete: this.handleRowDelete,
+							}}
+							options={{
+								search: false,
+								paging: false,
+								sorting: false,
+								actionsColumnIndex: columns.length,
+								headerStyle: { padding: '0 24px' },
+								rowStyle: (rowData, index) => ({
+									fontWeight: (index === billedProducts.length ? 'bold' : 'normal'),
+									background: (index === billedProducts.length ? '#eaeaea' : 'white'),
+								})
+							}}
+							icons={tableIcons}
+							innerRef={ref => this.billingTable = ref}
 						/>
+
+						{billedProducts.length > 0 && (
+							<div style={{ position: 'absolute', bottom: '1px', right: 0, background: '#eaeaea', width: 120, height: 48 }}></div>
+						)}
 					</div>
 
-					<div style={{ display: 'flex', alignItems: 'center', padding: '0 24px' }}>
-						Manual Product Search:&nbsp;&nbsp;
-						<div style={{ width: '360px' }}>
-							<ProductSearch
-								products={this.state.products}
-								onProductSelect={this.handleProductSelect}
+					<br/>
+
+					<div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '24px' }}>
+						<div className="card-body text-field-container" style={{ maxWidth: '300px' }}>
+							<TextField
+								autoFocus={true}
+								id="barcode-basic"
+								label="Barcode"
+								variant="outlined"
+								value={this.state.barcode}
+								onChange={this.handleBarcodeInputChange}
+								className="text-field"
+								required
+								inputProps={{ maxLength: 13 }}
+								size= "small"
 							/>
+						</div>
+
+						<div style={{ display: 'flex', alignItems: 'center', padding: '0 24px' }}>
+							Manual Product Search:&nbsp;&nbsp;
+							<div style={{ width: '360px' }}>
+								<ProductSearch
+									products={this.state.products}
+									onProductSelect={this.handleProductSelect}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<br/>
+
+					<div className="card-body" style={{ display: 'flex', justifyContent: 'space-between' }}>
+						<div className="print-bill">
+							<Button variant="contained" color="primary" onClick={this.handlePrintBill} disabled={billedProducts.length === 0}>
+								Print Bill
+							</Button>
+						</div>
+						<div>
+							<Button variant="contained" color="primary" onClick={this.handleSaveProduct} disabled={submitDisabled || billedProducts.length === 0}>
+								Confirm Order
+							</Button>
+
+							<Button variant="contained" color="default" onClick={this.resetForm} style={{ marginLeft: 16 }}>
+								Cancel
+							</Button>
 						</div>
 					</div>
 				</div>
 
-                <br/>
-
-                <div className="card-body text-right">
-                    <Button variant="contained" color="primary" onClick={this.handleSaveProduct} disabled={submitDisabled || billedProducts.length === 0}>
-                        Confirm Order
-                    </Button>
-
-                    <Button variant="contained" color="default" onClick={this.resetForm} style={{ marginLeft: 16 }}>
-                        Cancel
-                    </Button>
-                </div>
-            </div>
+				<PrintBillView billedProducts={billedProducts} />
+			</React.Fragment>
         );
     }
 }

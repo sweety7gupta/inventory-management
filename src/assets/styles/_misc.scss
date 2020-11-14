@@ -106,3 +106,70 @@ code {
     }
   }
 }
+
+.print {
+  display: none !important;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print {
+    display: block !important;
+  }
+
+  .content-wrapper {
+    padding: 0;
+  }
+
+  .solid-hr {
+    border-top: 1px solid black;
+    margin: 0.5rem 0;
+  }
+
+  .dashed-hr {
+    border-top: 1px dashed black;
+    margin: 0.3rem 0;
+  }
+
+  .products-container {
+    display: table;
+  }
+
+  .bill-receipt {
+    width: 3in;
+    font-size: 12px;
+    padding: 0.3rem;
+  }
+
+  .heading {
+    text-align: center;
+    margin: 1rem 0.1rem;
+  }
+
+  .product-row {
+    display: table-row;
+  }
+
+  .product-row .col {
+    text-align: right;
+  }
+
+  .product-row .col,
+  .product-heading .col {
+    display: table-cell;
+    padding: 0.05in 0.1in;
+    text-align: right;
+  }
+
+  .product-heading .col {
+    font-weight: bold;
+  }
+
+  .product-heading .col:first-child,
+  .product-row .col:first-child {
+    text-align: left;
+  }
+}

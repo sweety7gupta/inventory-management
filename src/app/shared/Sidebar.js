@@ -75,7 +75,7 @@ class Sidebar extends Component {
 
   render () {
     return (
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
+      <nav className="sidebar sidebar-offcanvas no-print" id="sidebar">
         <ul className="nav">
           <li className="nav-item nav-profile">
             <a href="!#" className="nav-link" onClick={evt =>evt.preventDefault()}>

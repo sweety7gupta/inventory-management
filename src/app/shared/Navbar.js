@@ -21,7 +21,7 @@ class Navbar extends Component {
   };
   render () {
     return (
-      <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row no-print">
         <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <Link className="navbar-brand brand-logo" to="/">
             {/* <img src={require('../../assets/images/logo.svg')} alt="logo" /></Link> */}
