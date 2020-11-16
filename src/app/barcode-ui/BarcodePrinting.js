@@ -3,12 +3,29 @@ import "./Barcode.css";
 import Barcode from 'react-barcode';
 import {  Button } from '@material-ui/core';
 import ProductSearch from '../components/common/ProductSearch';
+import * as ApiHelper from '../ApiHelper';
 
-class BarcodePrinting extends Component{
-   
-    state ={
+class BarcodePrinting extends Component {
+
+    state = {
         value : "",
-    }
+        products: [],
+    };
+
+    componentDidMount() {
+		ApiHelper.fetchProducts()
+			.then((json) => {
+				if (json.code === 'success') {
+                    const filteredProducts = json.data.filter(p => p.barcode.startsWith('999'));
+
+					this.setState({
+						products: filteredProducts
+					});
+				} else {
+					alert('Failed to load products. Refresh page.');
+				}
+			});
+	}
 
     triggerDownload = (imgURI) => {
         var evt = new MouseEvent('click', {
@@ -64,20 +81,21 @@ class BarcodePrinting extends Component{
             <div className="col-lg-8 mx-auto">
             {/* <div className="col-md-3"> */}
                 <div className="card card-body-container card-body-style ">
-                    <div  className="text-field-container container-style">
+                    <div  className="text-field-container container-style" style={{ paddingLeft: '0.5rem' }}>
                         <h4 className="card-title tab-heading">Barcode Printing</h4>
                     </div>
 
-                    <ProductSearch onProductSelect={this.handleProductSelection} />
+                    <ProductSearch
+                        products={this.state.products}
+                        onProductSelect={this.handleProductSelection}
+                    />
 
                     <div id="divBarcode" className="card-body text-field-container"  style={this.state.value ? {} : { display: 'none' }}>
-                        <Barcode value={this.state.value}  />
-                        {/* <img ref={this.state.value} /> */}
-                        
+                        <Barcode value={this.state.value && this.state.value.barcode}  />
                     </div>
 
                     <div className="card-body">
-                        <Button variant="contained" color="primary" onClick={this.printBarcode}>
+                        <Button variant="contained" color="primary" onClick={this.printBarcode} disabled={!this.state.value}>
                             Download
                         </Button>
                     </div>  
