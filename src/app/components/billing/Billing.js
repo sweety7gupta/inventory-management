@@ -232,8 +232,10 @@ class Billing extends Component {
 	};
 
 	handlePrintBill = () => {
+		const documentHeight = document.body.clientHeight;
 		document.body.style.height = (this.printRef.clientHeight + 160) + 'px';
 		window.print();
+		document.body.style.height = (documentHeight) + 'px';
 	};
 
     render() {
