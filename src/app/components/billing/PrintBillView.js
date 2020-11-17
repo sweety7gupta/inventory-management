@@ -48,7 +48,7 @@ export default class PrintBillView extends Component {
 		const { billedProducts = [] } = this.props;
 
 		return (
-			<div className="print">
+			<div className="print" ref={this.props.printRef}>
 				<div className="bill-receipt">
 					<div className="heading">
 						<div style={{ fontWeight: 'bold', fontSize: '18px', lineHeight: '28px' }}>Gupta Stores</div>

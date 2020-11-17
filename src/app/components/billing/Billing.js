@@ -232,6 +232,7 @@ class Billing extends Component {
 	};
 
 	handlePrintBill = () => {
+		document.body.style.height = (this.printRef.clientHeight + 160) + 'px';
 		window.print();
 	};
 
@@ -324,7 +325,7 @@ class Billing extends Component {
 					</div>
 				</div>
 
-				<PrintBillView billedProducts={billedProducts} />
+				<PrintBillView billedProducts={billedProducts} printRef={ref => this.printRef = ref} />
 			</React.Fragment>
         );
     }

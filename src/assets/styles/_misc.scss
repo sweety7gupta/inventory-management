@@ -108,7 +108,9 @@ code {
 }
 
 .print {
-  display: none !important;
+  // display: none !important;
+  // visibility: hidden;
+  opacity: 0;
 }
 
 @media print {
@@ -118,6 +120,7 @@ code {
 
   .print {
     display: block !important;
+    opacity: 1;
   }
 
   .content-wrapper {
@@ -139,9 +142,10 @@ code {
   }
 
   .bill-receipt {
-    width: 3in;
-    font-size: 12px;
+    width: 4in;
+    font-size: 16px;
     padding: 0.3rem;
+    margin-top: -100px;
   }
 
   .heading {
