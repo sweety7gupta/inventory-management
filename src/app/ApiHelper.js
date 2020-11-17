@@ -46,6 +46,11 @@ export function getInventoryStatus() {
     return commonApiCall(apiUrl);
 }
 
+export function createOrder(requestBody) {
+    const apiUrl = '/order/create';
+    return commonApiCall(apiUrl, 'POST', requestBody);
+}
+
 export function login(username, password) {
     const apiUrl = '/account/login';
     return commonApiCall(apiUrl, 'POST', { username, password });

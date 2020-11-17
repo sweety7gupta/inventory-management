@@ -16,7 +16,8 @@ class Billing extends Component {
     state = {
         products: [],
         currentProductName: '',
-        billedProducts: [],
+		billedProducts: [],
+		enablePrintButton: false,
         columns: [
             {
                 title: 'Barcode',
@@ -175,7 +176,7 @@ class Billing extends Component {
 		}
 	};
 
-    handleSaveProduct = () => {
+    handleConfirmOrder = () => {
         const { billedProducts, submitDisabled } = this.state;
 
         if (submitDisabled) {
@@ -190,11 +191,15 @@ class Billing extends Component {
             return;
         }
 
-        ApiHelper.addToInventory(billedProducts)
+		const requestBody = {
+			products: billedProducts.map(bp => ({ barcode: bp.barcode, quantity: bp.billedQuantity }))
+		};
+
+        ApiHelper.createOrder(requestBody)
             .then((json) => {
                 if (json.code === 'success') {
-                    alert('Inventory added successfully!');
-                    window.location.reload();
+                    alert('Order created successfully!');
+					this.setState({ enablePrintButton: true });
                 } else {
                     alert(json.message || 'Something went wrong. Please try again!');
                     this.setState({ submitDisabled: false });
@@ -239,7 +244,7 @@ class Billing extends Component {
 	};
 
     render() {
-        const { billedProducts, columns, submitDisabled } = this.state;
+        const { billedProducts, columns, submitDisabled, enablePrintButton } = this.state;
 
         return (
 			<React.Fragment>
@@ -311,13 +316,17 @@ class Billing extends Component {
 
 					<div className="card-body" style={{ display: 'flex', justifyContent: 'space-between' }}>
 						<div className="print-bill">
-							<Button variant="contained" color="primary" onClick={this.handlePrintBill} disabled={billedProducts.length === 0}>
-								Print Bill
+							<Button variant="outlined" color="primary" onClick={() => window.location.reload()}>
+								New Billing
 							</Button>
 						</div>
 						<div>
-							<Button variant="contained" color="primary" onClick={this.handleSaveProduct} disabled={submitDisabled || billedProducts.length === 0}>
+							<Button variant="contained" color="primary" onClick={this.handleConfirmOrder} disabled={submitDisabled || billedProducts.length === 0}>
 								Confirm Order
+							</Button>
+
+							<Button variant="contained" color="primary" onClick={this.handlePrintBill} disabled={!enablePrintButton || billedProducts.length === 0} style={{ marginLeft: 16 }}>
+								Print Bill
 							</Button>
 
 							<Button variant="contained" color="default" onClick={this.resetForm} style={{ marginLeft: 16 }}>
